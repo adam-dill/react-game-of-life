@@ -1,0 +1,43 @@
+.board {
+}
+
+.board-container {
+    margin: 0 auto;
+}
+
+.info-button {
+    margin-left: 10px;
+    cursor: pointer;
+    color: skyblue;
+    transition: color 0.5s;
+}
+
+.info-button:hover {
+    color:dodgerblue;
+    transition: color 0.5s;
+}
+
+.cell {
+    display:inline-block;
+    cursor: pointer;
+}
+
+.innerCell {
+    border: 1px solid lightgray;
+    margin:0px;
+}
+
+.action-btn {
+    margin: 10px 0px 0px;
+    float: right;
+}
+
+.active {
+    background-color: green;
+    transition: background-color 0.5s;
+}
+
+.inactive {
+    background-color: white;
+    transition: background-color 0.25s;
+}
