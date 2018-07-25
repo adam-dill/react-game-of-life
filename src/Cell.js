@@ -8,7 +8,8 @@ export default class Cell extends Component {
         this.state = {
             'active': false,
             'style': {
-                'width': this.props.width + "%"
+                'width': this.props.width + "%",
+                'height': this.props.height + "%"
             }
         }
     }
@@ -28,11 +29,19 @@ export default class Cell extends Component {
         this.setState({active:newState});
     }
 
+    handleMouseOver() {
+        if (this.props.model.drawing === true) {
+            this.toggle();
+        }
+    }
+
     render() {
         let c = (this.state.active === true) ? ' active' : ' inactive';
         return (
-            <div className={"cell" + c} style={this.state.style} onClick={this.toggle.bind(this)}>
-                <div className="innerCell">&nbsp;</div>
+            <div className={"cell" + c} style={this.state.style}
+                 onMouseDown={this.toggle.bind(this)}
+                 onMouseOver={this.handleMouseOver.bind(this)}>
+                <div className="innerCell"></div>
             </div>
         );
     }

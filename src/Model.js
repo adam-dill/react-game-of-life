@@ -3,10 +3,9 @@ export default class Model {
     size = 10;
 
     isRunning = false;
+    drawing = false;
     seed = [];
     state = [];
-
-    _queuedState = [];
 
     _listeners = [];
     _interval;
@@ -28,7 +27,7 @@ export default class Model {
 
     run() {
         this.isRunning = true;
-        this.initStateToSeed();
+        this.applyState(this.seed);
         this._interval = setInterval(this.tick.bind(this), 500);
     }
 
@@ -38,24 +37,29 @@ export default class Model {
             clearInterval(this._interval);
         }
         this.isRunning = false;
-        this.initStateToSeed();
+        this.applyState(this.seed);
 
     }
 
-    initStateToSeed() {
-        this.state.splice(0, this.state.length, ...this.seed);
+    applyState(arr) {
+        this.state.splice(0, this.state.length, ...arr);
         this.dispatchChange();
     }
 
-    applyQueuedState() {
-        this.state.splice(0, this.state.length, ...this._queuedState);
-        // clear the queue
-        this._queuedState.splice(0, this._queuedState.length);
-        this.dispatchChange();
+    compareState(a, b) {
+        if (a.length !== b.length) {
+            return false;
+        }
+        for (let i = 0; i < a.length; i++) {
+            if (a[i] !== b[i]) {
+                return false;
+            }
+        }
+        return true;
     }
-
 
     tick() {
+        let queuedState = [];
         this.state.forEach((value, index, arr) => {
             // get the state of all eight neighbors
             //arr[index] = (value === 0) ? 1 : 0;
@@ -74,9 +78,14 @@ export default class Model {
                     newState = 0;
                 }
             }
-            this._queuedState.push(newState);
+            queuedState.push(newState);
         });
-        this.applyQueuedState();
+        if (this.compareState(this.state, queuedState) === true) {
+            // no change
+            // TODO: alert user the set is complete
+        } else {
+            this.applyState(queuedState);
+        }
     }
 
 

@@ -25,10 +25,23 @@ export default class Board extends Component {
         }
     }
 
+    handleMouseDown() {
+        if (this.props.model.isRunning === false) {
+            this.props.model.drawing = true;
+        }
+    }
+
+    handleMouseOver() {
+        if (this.props.model.isRunning === false) {
+            this.props.model.drawing = false;
+        }
+    }
 
     render() {
         return (
-            <div className="board">
+            <div className="board"
+                 onMouseDown={this.handleMouseDown.bind(this)}
+                 onMouseUp={this.handleMouseOver.bind(this)}>
             {this.cells.map(value => {
                 return <Cell {...value} />
             })}

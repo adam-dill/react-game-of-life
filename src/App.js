@@ -18,7 +18,7 @@ export default class App extends Component {
     constructor(props) {
         super(props);
 
-        this._model = new Model(20);
+        this._model = new Model(15);
 
         this.state = {
             buttonLabel: this.getButtonLabel()
@@ -58,7 +58,7 @@ export default class App extends Component {
                     <div className="col-sm-12 col-md-12 col-lg-6">
                         <p>To play:</p>
                         <ol>
-                            <li>Click the cells on the board to toggle their active state in order to set the initial seed.<br /><b>NOTE:</b> Green indicates the cell is alive.</li>
+                            <li>Click and drag on the board to toggle the cells active state in order to set the initial seed.<br /><b>NOTE:</b> Green indicates the cell is alive.</li>
                             <li>Click the Run button to start.</li>
                         </ol>
                         <p>The rules:</p>
